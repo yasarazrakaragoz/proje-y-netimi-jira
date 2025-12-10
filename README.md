@@ -1,0 +1,1 @@
+# proje-y-netimi-jira
