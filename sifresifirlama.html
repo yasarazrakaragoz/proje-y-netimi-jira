@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şifremi Sıfırla</title>
+    <style>
+        /* Temel stil ayarları */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Sıfırlama kutusu stilleri */
+        .reset-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .reset-container h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .reset-container p {
+            margin-bottom: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Form elemanları stilleri */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; 
+            font-size: 16px;
+        }
+
+        /* Düğme stili */
+        .reset-button {
+            background-color: #ff9800; /* Turuncu tonu */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reset-button:hover {
+            background-color: #f57c00;
+        }
+
+        /* Geri dön linki */
+        .back-to-login {
+            margin-top: 25px;
+            font-size: 14px;
+        }
+        
+        .back-to-login a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="reset-container">
+        <h2>Şifrenizi Sıfırlayın</h2>
+        <p>Hesabınızla ilişkili e-posta adresinizi girin. Size şifre sıfırlama bağlantısı göndereceğiz.</p>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <input type="email" id="email" name="email" required placeholder="E-posta adresinizi buraya girin">
+            </div>
+
+            <button type="submit" class="reset-button">Sıfırlama Bağlantısı Gönder</button>
+        </form>
+        
+        <div class="back-to-login">
+            <a href="#">Giriş Ekranına Geri Dön</a>
+        </div>
+    </div>
+</body>
+</html>
