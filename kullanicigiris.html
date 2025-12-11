@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Giriş Ekranı</title>
+    <style>
+        /* Temel stil ayarları */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Giriş kutusu stilleri */
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 28px;
+            color: #1c1e21;
+        }
+
+        /* Form elemanları stilleri */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #606770;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            box-sizing: border-box; 
+            font-size: 16px;
+        }
+
+        /* Düğme stili */
+        .login-button {
+            background-color: #1877f2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #166fe5;
+        }
+
+        /* Şifre Sıfırlama ve Kayıt linki */
+        .options {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .options a {
+            color: #1877f2;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        .options a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Hesabınıza Giriş Yapın</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <input type="text" id="user_identifier" name="user_identifier" required placeholder="E-posta veya Kullanıcı Adı">
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" name="password" required placeholder="Şifre">
+            </div>
+
+            <button type="submit" class="login-button">Giriş Yap</button>
+        </form>
+        
+        <div class="options">
+            <a href="#">Şifreni mi unuttun?</a>
+            <hr style="border: 0; border-top: 1px solid #dadde1; margin: 20px 0;">
+            <button class="register-button" style="background-color: #42b72a; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; font-size: 17px; width: 60%;">Yeni Hesap Oluştur</button>
+        </div>
+    </div>
+</body>
+</html>
