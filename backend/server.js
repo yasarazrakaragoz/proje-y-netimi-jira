@@ -8,7 +8,6 @@ app.use(cors());
 app.use(express.json());
 
 // Demo kullanıcı listesi (RAM)
-// Gerçek projede veritabanı olur
 const users = []; // { id, fullname, email, passwordHash }
 
 const JWT_SECRET = "dev-secret-key";
@@ -22,97 +21,70 @@ app.get("/health", (req, res) => {
 
 /**
  * PROJ-5: Kullanıcı Kayıt API
- * POST /api/register
- * body: { fullname, email, password }
  */
 app.post("/api/register", async (req, res) => {
   const { fullname, email, password } = req.body;
 
   if (!fullname || !email || !password) {
-    return res.status(400).json({
-      error: "fullname, email ve password zorunludur"
-    });
+    return res.status(400).json({ error: "Alanlar zorunludur" });
   }
 
-  const exists = users.find(
-    u => u.email.toLowerCase() === email.toLowerCase()
-  );
+  const exists = users.find(u => u.email === email);
   if (exists) {
-    return res.status(409).json({
-      error: "Bu e-posta zaten kayıtlı"
-    });
-  }
-
-  if (password.length < 6) {
-    return res.status(400).json({
-      error: "Şifre en az 6 karakter olmalıdır"
-    });
+    return res.status(409).json({ error: "E-posta zaten kayıtlı" });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-
-  const newUser = {
+  users.push({
     id: users.length + 1,
     fullname,
     email,
     passwordHash
-  };
-  users.push(newUser);
-
-  const token = jwt.sign(
-    { userId: newUser.id, email: newUser.email },
-    JWT_SECRET,
-    { expiresIn: "1h" }
-  );
-
-  return res.status(201).json({
-    message: "Kayıt başarılı",
-    user: {
-      id: newUser.id,
-      fullname: newUser.fullname,
-      email: newUser.email
-    },
-    token
   });
+
+  res.status(201).json({ message: "Kayıt başarılı" });
 });
 
 /**
  * PROJ-6: Kullanıcı Giriş API
- * POST /api/login
- * body: { email, password }
  */
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: "email ve password zorunludur" });
-  }
-
-  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  const user = users.find(u => u.email === email);
   if (!user) {
-    return res.status(401).json({ error: "E-posta veya şifre hatalı" });
+    return res.status(401).json({ error: "Hatalı giriş" });
   }
 
   const ok = await bcrypt.compare(password, user.passwordHash);
   if (!ok) {
-    return res.status(401).json({ error: "E-posta veya şifre hatalı" });
+    return res.status(401).json({ error: "Hatalı giriş" });
   }
 
   const token = jwt.sign(
-    { userId: user.id, email: user.email },
+    { userId: user.id },
     JWT_SECRET,
     { expiresIn: "1h" }
   );
 
-  return res.json({
-    message: "Giriş başarılı",
-    user: { id: user.id, fullname: user.fullname, email: user.email },
-    token
-  });
+  res.json({ message: "Giriş başarılı", token });
 });
 
-// Sunucu
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Auth backend running on http://localhost:${PORT}`);
+/**
+ * PROJ-7: Şifre Sıfırlama API
+ */
+app.post("/api/reset-password", async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  const user = users.find(u => u.email === email);
+  if (!user) {
+    return res.status(404).json({ error: "Kullanıcı bulunamadı" });
+  }
+
+  user.passwordHash = await bcrypt.hash(newPassword, 10);
+  res.json({ message: "Şifre güncellendi" });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
