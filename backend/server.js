@@ -76,6 +76,41 @@ app.post("/api/register", async (req, res) => {
   });
 });
 
+/**
+ * PROJ-6: Kullanıcı Giriş API
+ * POST /api/login
+ * body: { email, password }
+ */
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "email ve password zorunludur" });
+  }
+
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  if (!user) {
+    return res.status(401).json({ error: "E-posta veya şifre hatalı" });
+  }
+
+  const ok = await bcrypt.compare(password, user.passwordHash);
+  if (!ok) {
+    return res.status(401).json({ error: "E-posta veya şifre hatalı" });
+  }
+
+  const token = jwt.sign(
+    { userId: user.id, email: user.email },
+    JWT_SECRET,
+    { expiresIn: "1h" }
+  );
+
+  return res.json({
+    message: "Giriş başarılı",
+    user: { id: user.id, fullname: user.fullname, email: user.email },
+    token
+  });
+});
+
 // Sunucu
 const PORT = 3000;
 app.listen(PORT, () => {
