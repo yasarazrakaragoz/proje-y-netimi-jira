@@ -42,7 +42,7 @@ app.post("/api/register", async (req, res) => {
     passwordHash
   });
 
-  return res.status(201).json({ message: "Kayıt başarılı" });
+  res.status(201).json({ message: "Kayıt başarılı" });
 });
 
 /**
